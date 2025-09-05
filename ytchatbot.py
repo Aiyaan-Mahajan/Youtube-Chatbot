@@ -23,7 +23,7 @@ try:
 except TranscriptsDisabled:
     print("No captions available for this video.")
 
-#step 1b - Text Splitting 
+#Step 1b - Text Splitting 
 
 splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 chunks = splitter.create_documents([transcript])
@@ -36,14 +36,14 @@ vector_store = FAISS.from_documents(chunks, embeddings)  #faiss vector store
 
 
 
-#step 1 creation of external knowledge source is created
+#Step 1 creation of external knowledge source is created
 
-#step 2  - retrieval
+#Step 2  - retrieval
 
 retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 4})
 retriever.invoke('What is deepmind')
 
-#step 3  - Augmentation
+#Step 3  - Augmentation
  
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.2)
 prompt = PromptTemplate(
